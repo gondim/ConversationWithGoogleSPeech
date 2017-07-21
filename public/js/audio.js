@@ -43,18 +43,20 @@ function stopRecording() {
   });
 }
 
-
+//captura do audio
 function sendAudio(blob) {
 
   var reader = new window.FileReader();
   reader.readAsDataURL(blob);
   reader.onloadend = function() {
+    // tranfomando o audio blob em base64s
     base64 = reader.result
     base64 = base64.split(',')[1];
     postAudio(base64);
   }
 }
 
+// enviando o base64 para o sevidor
 function postAudio(audio) {
 
   json = {
@@ -67,8 +69,11 @@ function postAudio(audio) {
     type: "POST",
     data: json,
     dataType: "json",
-    success: function(value) {
-      console.log(value);
+    success: function(data) {
+      // passa para json e depois pega o valor de audio
+      data = JSON.stringify(data);
+      data = JSON.parse(data)
+      console.log(data.audio);
     }
   });
 

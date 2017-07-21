@@ -1,6 +1,5 @@
 
-module.exports = function (base64){
-  console.log('show de bola');
+module.exports = function (base64, callback){
   // [START speech_async_recognize]
     // Imports the Google Cloud client library
     const Speech = require('@google-cloud/speech');
@@ -42,8 +41,9 @@ module.exports = function (base64){
         return operation.promise();
       })
       .then((results) => {
-        const transcription = results[0].results[0].alternatives[0].transcript;;
+        const transcription = results[0].results[0].alternatives[0].transcript;
         console.log(`Transcription: ${transcription}`);
+        callback(transcription);
       })
       .catch((err) => {
         console.error('ERROR triste:', err);

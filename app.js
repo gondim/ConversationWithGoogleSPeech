@@ -17,12 +17,7 @@ app.get('/', function(req, res) {
 });
 
 app.post('/api/audio', function (req, res) {
-   audio(req.body.audio);
-   res.send('');
-
-   // do stuff with file
+   audio(req.body.audio, (data) => res.send({'audio': data}));
 });
-
-// require('./rotas/speech.js')(teste);
 
 module.exports = app;
