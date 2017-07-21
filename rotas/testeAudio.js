@@ -1,5 +1,6 @@
 
 module.exports = function (base64){
+  console.log('show de bola');
   // [START speech_async_recognize]
     // Imports the Google Cloud client library
     const Speech = require('@google-cloud/speech');
@@ -36,12 +37,12 @@ module.exports = function (base64){
     speech.longRunningRecognize(request)
       .then((results) => {
         const operation = results[0];
-        console.log(operation);
+        // console.log(operation);
         // Get a Promise representation of the final result of the job
         return operation.promise();
       })
       .then((results) => {
-        const transcription = results[0].results[0];
+        const transcription = results[0].results[0].alternatives[0].transcript;;
         console.log(`Transcription: ${transcription}`);
       })
       .catch((err) => {

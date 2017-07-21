@@ -7,7 +7,9 @@ var onSuccess = function(s) {
   var context = new AudioContext();
   // var context = new webkitAudioContext();
   var mediaStreamSource = context.createMediaStreamSource(s);
-  recorder = new Recorder(mediaStreamSource);
+  recorder = new Recorder(mediaStreamSource, {
+    numChannels: 1
+  });
   recorder.record();
 
   // audio loopback
@@ -44,7 +46,7 @@ function stopRecording() {
 
 function sendAudio(blob) {
 
-  const reader = new window.FileReader();
+  var reader = new window.FileReader();
   reader.readAsDataURL(blob);
   reader.onloadend = function() {
     base64 = reader.result
@@ -55,7 +57,9 @@ function sendAudio(blob) {
 
 function postAudio(audio) {
 
-  const json = {'audio': audio}
+  json = {
+    'audio': audio
+  }
 
   $.ajax({
 
