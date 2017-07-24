@@ -73,6 +73,7 @@ function postAudio(audio) {
       // passa para json e depois pega o valor de audio
       data = JSON.stringify(data);
       data = JSON.parse(data)
+      $("p").text(data.audio);
       console.log(data.audio);
     }
   });
